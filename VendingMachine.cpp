@@ -14,14 +14,13 @@ int main() {
     bool keepRunning = true; // flag to control the loop
 
     while (keepRunning) {
-        // Display menu and select an item; exit if user chooses X
-        if (!selectItem(itemName, price)) {
+       
+        if (!selectItem(itemName, price)) { // Display menu and select an item; exit if user chooses X
             keepRunning = false;
             continue;
         }
 
-       // this function handles the payment process
-        handlePayment(price);
+        handlePayment(price); // this function handles the payment process
         cout << itemName << " dispensed!\n"; // Lets the user know that their item is dispensed 
 
          // this function asks the user if they want to make another purchase
@@ -47,7 +46,7 @@ void viewMenu() { // Display's the vending machine menu with listed items and th
     cout << "C     Mints (£0.79)   Gummies (£1.59) Biscuits (£1.39)\n"; // Row C items
 }
 
-bool selectItem(string &itemName, double &price) {
+bool selectItem(string &itemName, double &price) { // Calls viewMenu and allows the user to select an item from the vending machine menu
     while (true) {
         viewMenu();
 
@@ -57,8 +56,8 @@ bool selectItem(string &itemName, double &price) {
 
         if (code == "X" || code == "x") return false;   // Makes sure that lowercase x and uppercase X both work to exit the program
 
-        char letter = code[0]; // row
-        char number = code[1]; // column
+        char letter = code[0]; // this is the row
+        char number = code[1]; // this is the column
 
         if (letter == 'a') letter = 'A'; // Makes sure that lowercase a and uppercase A both work
         else if (letter == 'b') letter = 'B'; // Makes sure that lowercase b and uppercase B both work
@@ -105,47 +104,46 @@ bool selectItem(string &itemName, double &price) {
     }
 }
 
-bool confirmItem(const string &itemName) {
+bool confirmItem(const string &itemName) { // Asks the user to confirm their item selection
     char answer;
-    cout << "Is this correct? (Y/N): "; // Asks the user to confirm their item selection
+    cout << "Is this correct? Y for yes or any key to retry: "; // Asks the user to confirm their item selection
     cin >> answer;
 
     if (answer == 'y' || answer == 'Y') return true; // Makes sure that both lowercase y and uppercase Y work to confirm the item selection
     return false;
 }
 
-void handlePayment(double price) {
+void handlePayment(double price) { // Handles the payment process for the selected item
     double total = 0.0;
     double money;
 
     while (total < price) {
-        cout << "Please enter the value of £ you inserted: ";
+        cout << "Please enter the value of £ you inserted: "; // Asks the user to insert money for their selected item
         cin >> money;
-
         if (cin.fail() || money <= 0) {
             cin.clear();           // Clear the error flag
             cin.ignore(1000, '\n'); // Discard invalid input
-            cout << "Sorry, invalid amount. Try again.\n";
+            cout << "Sorry, invalid amount. Try again.\n"; // Informs the user that their input was invalid and to try again
             continue;
         }
 
         total += money;
 
         if (total < price) {
-            cout << "Insufficient funds. Please add £" << (price - total) << " more.\n";
+            cout << "Insufficient funds. Please add £" << (price - total) << " more.\n"; // Tells the user of how much more money they need to insert
         }
     }
 
     if (total > price) {
-        cout << "Change returned: £" << (total - price) << endl;
+        cout << "Change returned: £" << (total - price) << endl; // Gives the user their change if they inserted too much money
     }
 
-    cout << "Payment accepted. Thank you!\n";
+    cout << "Payment accepted. Thank you!\n"; // Confirms to the user that their payment was successful
 }
 
-bool askAnotherPurchase() {
+bool askAnotherPurchase() { // Asks the user if they want to make another purchase
     char choice;
-    cout << "Would you like to make another purchase? (Y/N): ";// Asks the user if they want to make another purchase
+    cout << "Would you like to make another purchase? Y for yes or any key to exit: ";// Asks the user if they want to make another purchase
     cin >> choice;
     cout << endl;
 
