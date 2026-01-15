@@ -9,27 +9,28 @@ void handlePayment(double price);
 bool askAnotherPurchase();
 
 int main() {
-    
-    while (true) {
-        string itemName;
-        double price;
+    string itemName;
+    double price;
+    bool keepRunning = true; // flag to control the loop
 
-        // this function displays the menu and allows the user to select an item
-
+    while (keepRunning) {
+        // Display menu and select an item; exit if user chooses X
         if (!selectItem(itemName, price)) {
-            cout << "Thank you for using the vending machine. Goodbye!\n"; // Allows the user leave the program
-            break;
+            keepRunning = false;
+            continue;
         }
-        // this function handles the payment process
-        handlePayment(price);
-        cout << itemName << " item dispensed!\n"; // Lets the user know that their item is being despenced 
 
-        // this function asks the user if they want to make another purchase
+       // this function handles the payment process
+        handlePayment(price);
+        cout << itemName << " dispensed!\n"; // Lets the user know that their item is dispensed 
+
+         // this function asks the user if they want to make another purchase
         if (!askAnotherPurchase()) {
-            cout << "Thank you for using the vending machine. Goodbye!\n"; // Allows the user leave the program
-            break;
+            keepRunning = false;
         }
     }
+
+    cout << "Thank you for using the vending machine. Goodbye!\n";  // Allows the user leave the program
     return 0;
 }
 
@@ -114,28 +115,32 @@ bool confirmItem(const string &itemName) {
 }
 
 void handlePayment(double price) {
-    double total = 0.00; // Tracks the total amount inserted
+    double total = 0.0;
     double money;
 
-    cout << "Please enter the value of £ inserted" << price << endl; // Asks the user to insert money for their selected item
-
-    while (total < price) { // Loops until the total amount inserted is equal to or greater than the price of the item
-        cout << "Insert value (£ remaining " << price - total << "): ";
+    while (total < price) {
+        cout << "Please enter the value of £ you inserted: ";
         cin >> money;
 
-        if (cin.fail() || money <= 0) { // Checks if the input is valid
-            cin.clear();
-            cin.ignore(1000, '\n'); 
-            cout << "Sorry, Invalid amount.\n"; // Validates the money inserted
+        if (cin.fail() || money <= 0) {
+            cin.clear();           // Clear the error flag
+            cin.ignore(1000, '\n'); // Discard invalid input
+            cout << "Sorry, invalid amount. Try again.\n";
             continue;
         }
 
-        total += money; // Adds the inserted money to the total amount
+        total += money;
+
+        if (total < price) {
+            cout << "Insufficient funds. Please add £" << (price - total) << " more.\n";
+        }
     }
 
     if (total > price) {
-        cout << "Change returned: £" << total - price << endl; // Returns change if the total amount inserted is greater than the price of the item
+        cout << "Change returned: £" << (total - price) << endl;
     }
+
+    cout << "Payment accepted. Thank you!\n";
 }
 
 bool askAnotherPurchase() {
