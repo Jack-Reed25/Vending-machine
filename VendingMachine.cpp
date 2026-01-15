@@ -13,15 +13,15 @@ int main() {
         string itemName;
         double price;
 
-        if (!selectItem(itemName, price)) {
+        if (selectItem(itemName, price)) {
             cout << "Thank you for using the vending machine. Goodbye!\n";
             break;
         }
 
         handlePayment(price);
-        cout << itemName << " item dispensed!\n\n";
+        cout << itemName << " item dispensed!\n";
 
-        if (!askAnotherPurchase()) {
+        if (askAnotherPurchase()) {
             cout << "Thank you for using the vending machine. Goodbye!\n";
             break;
         }
@@ -29,11 +29,16 @@ int main() {
     return 0;
 }
 
-void viewMenu() {
-    cout << "\n========= Welcome to the utility vending machine =========\n"; 
+void viewMenu() { 
+    cout << "\n"; 
+    cout << "========= Welcome to the utility vending machine =========\n"; 
+    cout << "\n"; 
     cout << "           1               2               3\n"; 
+    cout << "\n"; 
     cout << "A     Water (£1.00)   Juice (£1.50)   Cola (£1.25)\n"; 
+    cout << "\n"; 
     cout << "B     Crisps (£1.75)  Gum (£0.75)    Chocolate (£2.00)\n"; 
+    cout << "\n"; 
     cout << "C     Mints (£0.80)   Gummies (£1.60) Biscuits (£1.40)\n\n";
 }
 
@@ -48,7 +53,7 @@ bool selectItem(string &itemName, double &price) {
         if (code == "X" || code == "x") return false;
 
         if (code.length() != 2) {
-            cout << "Invalid code.\n\n";
+            cout << "Invalid code.\n";
             continue;
         }
 
@@ -88,7 +93,7 @@ bool selectItem(string &itemName, double &price) {
                 break;
 
             default:
-                cout << "Invalid code.\n\n";
+                cout << "Invalid code.\n";
                 continue;
         }
 
@@ -96,7 +101,7 @@ bool selectItem(string &itemName, double &price) {
 
         if (confirmItem(itemName)) return true;
 
-        cout << "Please try again.\n\n";
+        cout << "Please try again.\n";
     }
 }
 
@@ -142,4 +147,4 @@ bool askAnotherPurchase() {
 
     if (choice == 'y' || choice == 'Y') return true;
     return false;
-} 
+}
