@@ -39,11 +39,11 @@ void viewMenu() { // Display's the vending machine menu with listed items and th
     cout << "\n"; 
     cout << "           1               2               3\n"; // Column headers
     cout << "\n"; 
-    cout << "A     Water (£.99)   Juice (£1.49)   Cola (£1.25)\n"; // Row A items
+    cout << "A     Water (£.99)    Juice (£1.49)    Cola (£1.25)\n"; // Row A items
     cout << "\n"; 
-    cout << "B     Crisps (£1.75)  Gum (£0.75)    Chocolate (£1.99)\n"; // Row B items
+    cout << "B     Crisps (£1.75)  Gum (£0.75)      Chocolate (£1.99)\n"; // Row B items
     cout << "\n"; 
-    cout << "C     Mints (£0.79)   Gummies (£1.59) Biscuits (£1.39)\n"; // Row C items
+    cout << "C     Mints (£0.79)   Gummies (£1.59)  Biscuits (£1.39)\n"; // Row C items
 }
 
 bool selectItem(string &itemName, double &price) { // Calls viewMenu and allows the user to select an item from the vending machine menu
